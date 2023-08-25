@@ -17,7 +17,7 @@ module.exports.register=async function(req,res){
     }catch(err){
         console.log(err);
         return res.json(500, {
-            message:`Register error ${err}`
+            message:`Doctor Register error ${err}`
         })
     }
     
