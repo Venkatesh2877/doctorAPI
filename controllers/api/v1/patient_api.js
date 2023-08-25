@@ -1,4 +1,5 @@
 const Patients=require('../../../models/patient')
+const Reports=require('../../../models/report')
 
 module.exports.register= async function(req,res){
     try{
@@ -25,4 +26,44 @@ module.exports.register= async function(req,res){
             message:`Patient Register error ${err}`
         })
     }
+}
+
+module.exports.createReport=async function(req,res){
+    try{
+        let report= await Reports.create({
+            DoctorID:req.user._id,
+            PatientID:req.params.id,
+            Status: req.body.status
+        });    
+        return res.json(200, {
+            message:"New report Created",
+            data:{
+                report:report
+            }
+        });
+    }catch(err){
+        console.log(err);
+        return res.json(500, {
+            message:`Create report error ${err}`
+        })
+    }
+}
+
+module.exports.allReport= async function(req,res){
+    try{
+        let allReportOfPatient= await Reports.find({
+            PatientID:req.params.id,
+        });    
+        return res.json(200, {
+            message:`All report of ${req.params.id}`,
+            data:{
+                report:allReportOfPatient
+            }
+        });
+    }catch(err){
+        console.log(err);
+        return res.json(500, {
+            message:`Create report error ${err}`
+        })
+    }  
 }
