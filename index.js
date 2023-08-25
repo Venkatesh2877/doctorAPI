@@ -3,6 +3,7 @@ const app=express();
 const port=1000;
 const db=require('./config/mongoose')
 
+//passport for authentication and authorization
 const passport= require('passport');
 const passportJWT= require('./config/passport-jwt-strategy');
 

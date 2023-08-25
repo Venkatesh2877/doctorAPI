@@ -1,5 +1,7 @@
 const Reports=require('../../../models/report')
 
+
+//return all the reports with specific status
 module.exports.allStatusReport= async function(req,res){
      try{
         let allStatusReports= await Reports.find({Status: req.params.status});

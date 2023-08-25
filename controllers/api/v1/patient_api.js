@@ -1,9 +1,13 @@
 const Patients=require('../../../models/patient')
 const Reports=require('../../../models/report')
 
+
+//register a new patient
 module.exports.register= async function(req,res){
     try{
         let exitPatient= await Patients.findOne({phoneNumber: req.body.phoneNumber});
+
+        //return details of patient if found
         if(exitPatient){
             return res.json(200,{
                 message:'Patient Exist and here are the details',
@@ -13,9 +17,10 @@ module.exports.register= async function(req,res){
             });
         }
         
+        //else create a new patient
         let patient= await Patients.create(req.body);
         return res.json(200, {
-            message:"New Patient Created",
+            message:"New Patient Created and here are the details",
             data:{
                 patient:patient
             }
@@ -28,6 +33,8 @@ module.exports.register= async function(req,res){
     }
 }
 
+
+//create a report for the patient
 module.exports.createReport=async function(req,res){
     try{
         let report= await Reports.create({
@@ -49,6 +56,7 @@ module.exports.createReport=async function(req,res){
     }
 }
 
+//displlay all the report of the patients
 module.exports.allReport= async function(req,res){
     try{
         let allReportOfPatient= await Reports.find({
